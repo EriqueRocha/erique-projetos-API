@@ -20,9 +20,7 @@ import org.springframework.context.annotation.Configuration;
                 description = "API para registros de alagamentos"),
         servers = {
                 @Server(url = "http://localhost:8080/", description = "Development"),
-                @Server(url = "https://localhost:8080/", description = "Production"),
-                @Server(url = "http://localhost:80/", description = "Development"),
-                @Server(url = "https://localhost:80/", description = "Production")})
+                @Server(url = "http://localhost:80/", description = "Development")})
 public class OpenAPI30Configuration {
 /**
  * Configure the OpenAPI components.
