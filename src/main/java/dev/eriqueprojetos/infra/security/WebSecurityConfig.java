@@ -4,7 +4,6 @@ import dev.eriqueprojetos.infra.security.jwt.JwtFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -19,13 +18,11 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.headers(headers -> headers.disable());
-        http.cors(cors -> cors.disable()).csrf(csrf -> csrf.disable()).addFilterAfter(new JwtFilter(), UsernamePasswordAuthenticationFilter.class)
+        http.csrf(csrf -> csrf.disable()).addFilterAfter(new JwtFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers("/swagger-ui/**","/v3/api-docs/**").permitAll()
                         .requestMatchers("/public/**").permitAll()
@@ -35,7 +32,7 @@ public class WebSecurityConfig {
 
                         .requestMatchers(HttpMethod.POST,"/projetos/save").hasRole("MANAGER")
                         .requestMatchers(HttpMethod.DELETE,"/projetos/delete/{id}").hasRole("MANAGER")
-                        .requestMatchers(HttpMethod.GET,"/projetos/getList").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/projetos/getList").hasRole("MANAGER")
                         .requestMatchers(HttpMethod.GET,"/projetos/getOne/{id}").permitAll()
                         .requestMatchers(HttpMethod.PUT,"/projetos/update/{id}").hasRole("MANAGER")
                         .requestMatchers(HttpMethod.PATCH,"/projetos/addImage/{id}").hasRole("MANAGER")

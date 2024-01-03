@@ -15,13 +15,11 @@ import dev.eriqueprojetos.service.ManagerService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/public")
+@CrossOrigin(origins = "*")
 public class LoginResource {
 
     public static final BusinessException USUARIO_INVALIDO_EXCEPTION = new BusinessException("Login Inválido","403","Confirme seu login e senha");

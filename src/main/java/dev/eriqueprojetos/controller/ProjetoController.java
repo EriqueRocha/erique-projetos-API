@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/projetos")
+@CrossOrigin(origins = "*")
 public class ProjetoController {
 
     @Autowired
